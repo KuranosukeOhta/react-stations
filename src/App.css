@@ -1,0 +1,17 @@
+.header {
+    background-color: #f5f5f5;
+    border-style:solid;
+    border-width: 2px;
+    border-color: yellowgreen;
+}
+
+.button {
+    background-color: rgb(0, 85, 255);
+    width: 100px;
+    height: 100px;
+}
+
+.dogImg {
+    width: 400px;
+    height: auto;
+}

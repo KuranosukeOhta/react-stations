@@ -1,7 +1,8 @@
 // DO NOT DELETE
 
 import './App.css'
-import { useState } from 'react'
+import { useState } from 'react';
+
 
 /**
  * @type {() => JSX.Element}
@@ -15,12 +16,24 @@ import { useState } from 'react'
 */
 
 export const App = () => {
+
+
+
   // 犬の画像を取得
-  const [dogUrl, setDogUrl] = useState('') //useStateの初期値
+  const [dogUrl, setDogUrl] = useState(""); //useStateの初期値
 
   const fetchDogImg = async () => {
-    setDogUrl("https://images.dog.ceo/breeds/hound-english/n02089973_1132.jpg ")
-  }
+    const response = await fetch("https://dog.ceo/api/breeds/image/random");
+    const imgData = await response.json();
+    if (imgData.message !== dogUrl) {
+      setDogUrl(imgData.message);
+    }
+  };
+
+  // コンポーネントがマウントされたときに画像を取得するフック
+  useState(() => {
+    fetchDogImg();
+  }, []);
 
   function handleClick() {
     fetchDogImg()
@@ -29,15 +42,15 @@ export const App = () => {
 
   // 取得した画像と併せてHTMLを構築
   return (
-    <>
-      <header>
+    <div>
+      <header className='header'>
         <h1>Dogアプリ</h1>
         <p>犬の画像を表示するサイトです</p>
-        <button onClick={handleClick}>更新</button>
+        <button className='button' onClick={handleClick}>更新</button>
         <p></p>
-        <img src={dogUrl} />
+        <img className='dogImg' src={dogUrl}/>
         <p>上部に画像が表示されます。</p>
       </header>
-    </>
+    </div>
   )
 }
