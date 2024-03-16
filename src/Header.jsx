@@ -4,7 +4,7 @@ export const Header = () => {
   return (
     <>
       <header className="header">
-        <h1>Dogアプリ</h1>
+        <h1>Dogsアプリ</h1>
       </header>
     </>
   )

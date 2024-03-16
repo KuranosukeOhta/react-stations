@@ -2,11 +2,10 @@
 
 import "./App.css"
 
-
-export const DogImage = ( {url} ) => {
+export const DogImage = ( props ) => {
   return (
     <>
-      <img className="dogImg" src={url} />
+      <img className="dogImg" src={props.url} />
     </>
   )
 }
