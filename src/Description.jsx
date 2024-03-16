@@ -25,7 +25,7 @@ export const Description = ({ handleClick }, props) => {
   */
 
   handleClick = () => {
-    alert('clicked')
+    //alert('clicked')
     fetch('https://dog.ceo/api/breeds/image/random')
       .then(response => {
         return response.json()
@@ -42,7 +42,7 @@ export const Description = ({ handleClick }, props) => {
         画像を表示
       </button>
       <p></p>
-      <DogImage url={dogUrl} />
+      <DogImage imageUrl={dogUrl} />
       <p>上部に画像が表示されます。</p>
     </>
   )
