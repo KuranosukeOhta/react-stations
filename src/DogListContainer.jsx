@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 
+import BreedsSelect from './BreedsSelect'
+
 export const DogListContainer = () => {
   const [breeds, setBreeds] = useState('')
 
@@ -16,7 +18,10 @@ export const DogListContainer = () => {
   }, []) // ここの第2引数を空欄にすることで、初回レンダリング時のみに実行できる
 
   console.log(breeds)
-  // まだbreedsを表示しなくて良い
+
+  const [selectedBreed, setSelectedBreed] = useState('')
+
+
 
   return (
     <>
@@ -24,6 +29,7 @@ export const DogListContainer = () => {
       <ul>
         <li>List item 1</li>
       </ul>
+      <BreedsSelect breeds={breeds} />
     </>
   )
 }
