@@ -1,9 +1,12 @@
 // @ts-check
 
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { DogImage } from './DogImage'
+import PropTypes from 'prop-types';
 
-export const Description = ({ handleClick }, props) => {
+// @ts-ignore
+export const Description = ({ handleClick }) => {
   // 犬の画像を取得
   const [dogUrl, setDogUrl] = useState('') //useStateの初期値
 
@@ -24,16 +27,24 @@ export const Description = ({ handleClick }, props) => {
   }
   */
 
-  handleClick = () => {
-    //alert('clicked')
+
+  const fetchRandomDogImg = () => {
     fetch('https://dog.ceo/api/breeds/image/random')
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        setDogUrl(data.message)
-      })
+    .then(response => {
+      return response.json()
+    })
+    .then(data => {
+      setDogUrl(data.message)
+    })
   }
+
+  handleClick = () => {
+    fetchRandomDogImg()
+  }
+
+  useEffect(() => {
+    fetchRandomDogImg()
+  }, [])
 
   return (
     <>
@@ -49,3 +60,7 @@ export const Description = ({ handleClick }, props) => {
 }
 
 export default Description
+
+Description.propTypes = {
+  handleClick: PropTypes.func.isRequired
+};

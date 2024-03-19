@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react'
 import BreedsSelect from './BreedsSelect'
 
 export const DogListContainer = () => {
-  const [breeds, setBreeds] = useState('')
+  const [breeds, setBreeds] = useState([])
+  const [selectedBreed, setSelectedBreed] = useState('')
 
   useEffect(() => {
     const fetchDogList = async () => {
@@ -19,17 +20,40 @@ export const DogListContainer = () => {
 
   console.log(breeds)
 
-  const [selectedBreed, setSelectedBreed] = useState('')
+  const handleClickDogImages = () => {
+    console.log('You clicked me!')
+  }
+
+
+
+
+  // @ts-ignore
+  const handleSelectedBreed = (selectedBreed) =>{
+    setSelectedBreed(selectedBreed)
+    console.log('You selected '+selectedBreed)
+    fetchDogsImg(selectedBreed)
+  }
+
+  // @ts-ignore
+  const fetchDogsImg = async (fetchBreed) => {
+    console.log('hi')
+    console.log(fetchBreed)
+    const response = await fetch(`https://dog.ceo/api/breed/${fetchBreed}/images/random/3`);
+    console.log('Imgs: ' + response)
+    return response
+  }
+
+  const [fetchDogsImgState] = useState(fetchDogsImg)
+
 
 
 
   return (
     <>
-      <p>This is a dog list</p>
-      <ul>
-        <li>List item 1</li>
-      </ul>
-      <BreedsSelect breeds={breeds} />
+      <button type="button" onClick={handleClickDogImages}>検索</button>
+      <p></p>
+      
+      <BreedsSelect breeds={breeds} onChange={handleSelectedBreed} selectedBreed={selectedBreed} />
     </>
   )
 }
