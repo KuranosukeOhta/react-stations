@@ -22,25 +22,42 @@ export const DogListContainer = () => {
 
   const handleClickDogImages = () => {
     console.log('You clicked me!')
+    fetchDogsImg(selectedBreed)
   }
-
-
-
 
   // @ts-ignore
   const handleSelectedBreed = (selectedBreed) =>{
     setSelectedBreed(selectedBreed)
     console.log('You selected '+selectedBreed)
-    fetchDogsImg(selectedBreed)
   }
 
   // @ts-ignore
+
+  const imageContainer = document.getElementById('image-container')
+
   const fetchDogsImg = async (fetchBreed) => {
-    console.log('hi')
-    console.log(fetchBreed)
-    const response = await fetch(`https://dog.ceo/api/breed/${fetchBreed}/images/random/3`);
-    console.log('Imgs: ' + response)
-    return response
+    try{
+      console.log('hi')
+      console.log(fetchBreed)
+      const response = await fetch(`https://dog.ceo/api/breed/${fetchBreed}/images/random/3`);
+      const data = await response.json()
+      const images = data.message
+
+      imageContainer.innerHTML = ''
+
+      images.forEach(imageUrl => {
+        const imgElement = document.createElement('img')
+        imgElement.src = imageUrl
+        imageContainer.appendChild(imgElement)
+      })
+      
+      console.log('Imgs: ' + images)
+      return images
+
+    } catch (error) {
+      console.error('Error fetching images:', error);
+      return [];
+    }
   }
 
   const [fetchDogsImgState] = useState(fetchDogsImg)
@@ -50,10 +67,11 @@ export const DogListContainer = () => {
 
   return (
     <>
-      <button type="button" onClick={handleClickDogImages}>検索</button>
+      <button type="button" onClick={handleClickDogImages}>表示</button>
       <p></p>
       
       <BreedsSelect breeds={breeds} onChange={handleSelectedBreed} selectedBreed={selectedBreed} />
+      <div id='image-container'></div>
     </>
   )
 }
