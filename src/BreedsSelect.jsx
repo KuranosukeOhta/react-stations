@@ -9,6 +9,7 @@ export const BreedsSelect = ({ breeds, onChange }) => {
 
   /*if (!Array.isArray(breeds)) {
     return <p>Error: breeds data is not an array</p>;
+    進捗の管理
   }*/
 
   const breedsArray = Object.keys(breeds); // オブジェクトデータを配列に変換
@@ -45,6 +46,3 @@ BreedsSelect.propTypes = {
 }
 
 export default BreedsSelect
-
-
-
